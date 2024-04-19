@@ -3,35 +3,44 @@
 
 # Apply common configuration to all hosts
 - hosts: all
+  become: yes
+  tasks:
+    - name: update apt cache
+      ansible.builtin.apt:
+        update_cache: yes
+        
+    - name: update base os and software
+      ansible.builtin.apt:
+        upgrade: dist
+        
+    #- name: connect arc connected machines agent
 
-  roles:
-  - common
+    - name: get & install wazuh agent
+      apt_key:
+        url: "{{ UrlWazuhAgent }}"
+        state: present
+    
+    - name: configure apt wazuh repo
+      apt_repository:
+        repo: "{{ RepoWazuhAgent }}"
+        state: present
+        filename: "{{ RepoDest }}"
+    
+    - name: update apt
+        apt:
+          update_cache: true
+          
+    - name: 
+      apt:
+        name: wazuh-agent={{ WazuhVersion }}-1
+        state: present
+    template:
+      src: "{{ ConfigWazuh }}"
+      dest: "{{ ConfigDestWazuh }}"
+      mode: "{{ ConfigPermission }}"
+    notify: WazuhAgentServiceStartEnableAndReload
 
-# Configure and deploy database servers.
-- hosts: security
+    
 
-  roles:
-  - security
+    #- name: install portainer
 
-# Configure and deploy the web servers. Note that we include two roles
-# here, the 'base-apache' role which simply sets up Apache, and 'web'
-# which includes our example web application.
-
-- hosts: webservers
-
-  roles:
-  - base-apache
-  - web
-
-# Configure and deploy the load balancer(s).
-- hosts: lbservers
-
-  roles:
-  - caddy
-
-# Configure and deploy the Nagios monitoring node(s).
-- hosts: monitoring
-
-  roles:
-  - prometheus
-  - grafana
