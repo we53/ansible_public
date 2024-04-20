@@ -13,7 +13,7 @@
       resource_group: "'{{ lookup('ansible.builtin.env', 'resource_group') }}'"
       tenant_id: "'{{ lookup('ansible.builtin.env', 'tenant_id') }}'"
       subscription_id: "'{{ lookup('ansible.builtin.env', 'subscription_id') }}'"
-      location: "{{ lookup('ansible.builtin.env', 'location') }}"
+      location: {{ lookup('ansible.builtin.env', "location") }}
 
   #pre_tasks:
     #- name: update apt cache
