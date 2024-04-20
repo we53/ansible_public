@@ -7,14 +7,6 @@
   become_user: root
 
   pre_tasks:
-    - name: clone wazuh ansible role
-      git:
-        repo: https://github.com/wazuh/wazuh-ansible.git
-        dest: /etc/ansible/roles/
-        clone: yes
-        update: yes
-  
-  tasks:
     - name: update apt cache
       ansible.builtin.apt:
         update_cache: yes
@@ -22,23 +14,8 @@
     - name: update base os and software
       ansible.builtin.apt:
         upgrade: dist
-
+  
+  tasks:
     - name: Connect the Connected Machine Agent on Linux servers to Azure Arc
       become: yes
       shell: azcmagent connect --service-principal-id "{{ lookup('env','azure.service_principal_id' }}" --service-principal-secret "{{ lookup('env','azure.service_principal_secret' }}" --resource-group "{{ lookup('env','azure.resource_group' }}" --tenant-id "{{ lookup('env','azure.tenant_id' }}" --location "{{ lookup('env','azure.location' }}" --subscription-id "{{ lookup('env','azure.subscription_id' }}"
-
-- hosts: localhost
-  become: yes
-  become_user: root
-  roles:
-    - /etc/ansible/roles/wazuh-ansible/roles/wazuh/ansible-wazuh-agent
-  vars:
-    wazuh_managers:
-      - address: "{{ lookup('env','WAZUH_SERVER') }}"
-        port: 1514
-        protocol: tcp
-        api_port: 55000
-        api_proto: 'https'
-        api_user: wazuh
-        max_retries: 5
-        retry_interval: 5

@@ -2,6 +2,18 @@
 - hosts: localhost
   become: yes
   become_user: root
+
+  pre_tasks:
+    - name: clone wazuh ansible role
+      git:
+        repo: https://github.com/wazuh/wazuh-ansible.git
+        dest: /etc/ansible/roles/
+        clone: yes
+        update: yes
+        
+- hosts: localhost
+  become: yes
+  become_user: root
   roles:
     - ../roles/wazuh/ansible-wazuh-agent
   vars:
@@ -14,3 +26,25 @@
         api_user: wazuh
         max_retries: 5
         retry_interval: 5
+    wazuh_agent_sources_installation:
+      enabled: true
+      #branch: "v4.7.1"
+      user_language: "y"
+      user_no_stop: "y"
+      user_install_type: "agent"
+      user_dir: "/var/ossec"
+      user_delete_dir: "y"
+      user_enable_active_response: "y"
+      user_enable_syscheck: "y"
+      user_enable_rootcheck: "y"
+      user_enable_openscap: "n"
+      user_enable_sca: "y"
+      user_enable_authd: "y"
+      user_generate_authd_cert: "n"
+      user_update: "y"
+      user_binaryinstall: null
+      user_agent_server_ip: 172.16.24.56
+      user_agent_server_name: null
+      user_agent_config_profile: null
+      user_ca_store: /var/ossec/wpk_root.pem"
+      wazuh_profile: "ubuntu, ubuntu18"
