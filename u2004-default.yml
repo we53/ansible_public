@@ -8,7 +8,7 @@
 
   vars:
     azure:
-      service_principal_id: '{{ lookup('ansible.builtin.env', 'HOME') }}'
+      service_principal_id: "'{{ lookup('ansible.builtin.env', 'HOME') }}'"
       service_principal_secret: '{{ lookup('ansible.builtin.env', 'HOME') }}'
       resource_group: '{{ lookup('ansible.builtin.env', 'HOME') }}'
       tenant_id: '{{ lookup('ansible.builtin.env', 'HOME') }}'
