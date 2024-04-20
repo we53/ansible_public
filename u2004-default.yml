@@ -24,8 +24,8 @@
         upgrade: dist
 
     - name: Connect the Connected Machine Agent on Linux servers to Azure Arc
-    become: yes
-    shell: azcmagent connect --service-principal-id "{{ lookup('env','azure.service_principal_id' }}" --service-principal-secret "{{ lookup('env','azure.service_principal_secret' }}" --resource-group "{{ lookup('env','azure.resource_group' }}" --tenant-id "{{ lookup('env','azure.tenant_id' }}" --location "{{ lookup('env','azure.location' }}" --subscription-id "{{ lookup('env','azure.subscription_id' }}"
+      become: yes
+      shell: azcmagent connect --service-principal-id "{{ lookup('env','azure.service_principal_id' }}" --service-principal-secret "{{ lookup('env','azure.service_principal_secret' }}" --resource-group "{{ lookup('env','azure.resource_group' }}" --tenant-id "{{ lookup('env','azure.tenant_id' }}" --location "{{ lookup('env','azure.location' }}" --subscription-id "{{ lookup('env','azure.subscription_id' }}"
 
 - hosts: localhost
   become: yes
