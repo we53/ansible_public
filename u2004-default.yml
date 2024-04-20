@@ -5,6 +5,9 @@
 - hosts: localhost
   become: yes
   become_user: root
+
+  roles:
+    - ../roles/wazuh/ansible-wazuh-agent
   
   tasks:
     - name: update apt cache
@@ -22,9 +25,6 @@
         dest: /etc/ansible/roles/
         clone: yes
         update: yes
-    
-    roles:
-    - ../roles/wazuh/ansible-wazuh-agent
 
     vars:
       wazuh_managers:
