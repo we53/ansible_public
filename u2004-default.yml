@@ -5,20 +5,6 @@
 - hosts: localhost
   become: yes
   become_user: root
-
-  roles:
-    - ../roles/wazuh/ansible-wazuh-agent
-
-  vars:
-      wazuh_managers:
-      - address: "{{ lookup('env','WAZUH_SERVER') }}"
-        port: 1514
-        protocol: tcp
-        api_port: 55000
-        api_proto: 'https'
-        api_user: wazuh
-        max_retries: 5
-        retry_interval: 5
   
   tasks:
     - name: update apt cache
@@ -36,9 +22,6 @@
         dest: /etc/ansible/roles/
         clone: yes
         update: yes
-
-    
-    
 
     #- name: install portainer
 
