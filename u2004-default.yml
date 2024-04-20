@@ -2,7 +2,7 @@
 # This playbook deploys the whole application stack in this site.
 
 # Apply common configuration to all hosts
-- hosts: all
+- hosts: localhost
   become: yes
   become_user: root
   
@@ -16,7 +16,7 @@
         upgrade: dist
         
     #- name: connect arc connected machines agent
-    - name clone wazuh ansible role
+    - name: clone wazuh ansible role
       git:
         repo: https://github.com/wazuh/wazuh-ansible.git
         dest: /etc/ansible/roles/
@@ -28,7 +28,7 @@
 
     vars:
       wazuh_managers:
-      - address: 192.168.33.31
+      - address: "{{ lookup('env','WAZUH_SERVER') }}"
         port: 1514
         protocol: tcp
         api_port: 55000
