@@ -10,12 +10,13 @@
         dest: /etc/ansible/roles/
         clone: yes
         update: yes
-        
+
 - hosts: localhost
   become: yes
   become_user: root
   roles:
-    - ../roles/wazuh/ansible-wazuh-agent
+    #- ../roles/wazuh/ansible-wazuh-agent
+    - /etc/ansible/roles/wazuh-ansible/roles/wazuh/ansible-wazuh-agent
   vars:
     wazuh_managers:
       - address: "{{ lookup('env','WAZUH_SERVER') }}"
