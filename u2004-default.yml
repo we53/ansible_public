@@ -5,6 +5,14 @@
 - hosts: localhost
   become: yes
   become_user: root
+
+  pre_tasks:
+    - name: clone wazuh ansible role
+      git:
+        repo: https://github.com/wazuh/wazuh-ansible.git
+        dest: /etc/ansible/roles/
+        clone: yes
+        update: yes
   
   tasks:
     - name: update apt cache
@@ -14,14 +22,19 @@
     - name: update base os and software
       ansible.builtin.apt:
         upgrade: dist
-        
-    #- name: connect arc connected machines agent
-    - name: clone wazuh ansible role
-      git:
-        repo: https://github.com/wazuh/wazuh-ansible.git
-        dest: /etc/ansible/roles/
-        clone: yes
-        update: yes
 
-    #- name: install portainer
-
+- hosts: localhost
+  become: yes
+  become_user: root
+  roles:
+    - ../roles/wazuh/ansible-wazuh-agent
+  vars:
+    wazuh_managers:
+      - address: "{{ lookup('env','WAZUH_SERVER') }}"
+        port: 1514
+        protocol: tcp
+        api_port: 55000
+        api_proto: 'https'
+        api_user: wazuh
+        max_retries: 5
+        retry_interval: 5
