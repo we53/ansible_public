@@ -4,6 +4,8 @@
 # Apply common configuration to all hosts
 - hosts: all
   become: yes
+  become_user: root
+  
   tasks:
     - name: update apt cache
       ansible.builtin.apt:
@@ -14,31 +16,26 @@
         upgrade: dist
         
     #- name: connect arc connected machines agent
+    - name clone wazuh ansible role
+      git:
+        repo: https://github.com/wazuh/wazuh-ansible.git
+        dest: /etc/ansible/roles/
+        clone: yes
+        update: yes
+    
+    roles:
+    - ../roles/wazuh/ansible-wazuh-agent
 
-    - name: get & install wazuh agent
-      apt_key:
-        url: "{{ UrlWazuhAgent }}"
-        state: present
-    
-    - name: configure apt wazuh repo
-      apt_repository:
-        repo: "{{ RepoWazuhAgent }}"
-        state: present
-        filename: "{{ RepoDest }}"
-    
-    - name: update apt
-        apt:
-          update_cache: true
-          
-    - name: 
-      apt:
-        name: wazuh-agent={{ WazuhVersion }}-1
-        state: present
-    template:
-      src: "{{ ConfigWazuh }}"
-      dest: "{{ ConfigDestWazuh }}"
-      mode: "{{ ConfigPermission }}"
-    notify: WazuhAgentServiceStartEnableAndReload
+    vars:
+      wazuh_managers:
+      - address: 192.168.33.31
+        port: 1514
+        protocol: tcp
+        api_port: 55000
+        api_proto: 'https'
+        api_user: wazuh
+        max_retries: 5
+        retry_interval: 5
 
     
 
