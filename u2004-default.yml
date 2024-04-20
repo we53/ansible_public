@@ -31,7 +31,7 @@
   become: yes
   become_user: root
   roles:
-    - /etc/ansible/roles/wazuh/ansible-wazuh-agent
+    - /etc/ansible/roles/wazuh-ansible/roles/wazuh/ansible-wazuh-agent
   vars:
     wazuh_managers:
       - address: "{{ lookup('env','WAZUH_SERVER') }}"
