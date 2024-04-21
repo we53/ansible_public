@@ -24,10 +24,11 @@
       #ansible.builtin.apt:
         #upgrade: dist
   pre_tasks:
-    - debug:
-      msg: "{{ lookup('ansible.builtin.env', 'location') | quote }}"
-      
+    
+
   tasks:
     - name: Connect the Connected Machine Agent on Linux servers to Azure Arc
+      ansible.builtin.debug:
+        msg: "{{ lookup('ansible.builtin.env', 'location') | quote }}"
       become: true
       shell: azcmagent connect --service-principal-id "{{ azure.service_principal_id }}" --service-principal-secret "{{ azure.service_principal_secret }}" --resource-group "{{ azure.resource_group }}" --tenant-id "{{ azure.tenant_id }}" --location "{{ azure.location }}" --subscription-id "{{ azure.subscription_id }}"
