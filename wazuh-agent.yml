@@ -11,7 +11,7 @@
         clone: yes
         update: yes
         single_branch: true
-        version: stable
+        version: master
 
 - hosts: localhost
   become: yes
