@@ -23,9 +23,7 @@
     #- name: update base os and software
       #ansible.builtin.apt:
         #upgrade: dist
-  pre_tasks:
     
-
   tasks:
     - name: Connect the Connected Machine Agent on Linux servers to Azure Arc
       ansible.builtin.debug:
