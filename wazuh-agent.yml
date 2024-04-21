@@ -5,9 +5,11 @@
 
   tasks:
     - name: clone wazuh ansible role
-      git:
+      ansible.builtin.git:
         repo: https://github.com/wazuh/wazuh-ansible.git
-        dest: /etc/ansible/roles/
+        dest: /etc/ansible/roles/wazuh-ansible/
         clone: yes
         update: yes
+        single_branch: true
+        version: master
 
