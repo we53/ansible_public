@@ -18,4 +18,4 @@
   tasks:
     - name: Connect the Connected Machine Agent on Linux servers to Azure Arc
       become: true
-      shell: azcmagent connect --service-principal-id "{{ az-sp }}" --service-principal-secret "{{ az-sp-scrt }}" --resource-group "{{ az-rg }}" --tenant-id "{{ az-tenant }}" --location "{{ az-loc }}" --subscription-id "{{ az-sub }}"
+      shell: azcmagent connect --service-principal-id "{{ az_sp }}" --service-principal-secret "{{ az_sp_scrt }}" --resource-group "{{ az_rg }}" --tenant-id "{{ az_tenant }}" --location "{{ az_loc }}" --subscription-id "{{ az_sub }}"
