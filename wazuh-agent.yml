@@ -10,6 +10,8 @@
         body_format: json
         return_content: true
       register: wazuh_version
+
+    - debug:
       msg: "latest wazuh: {{ wazuh_version.json.tag_name }}"
 
   tasks:
