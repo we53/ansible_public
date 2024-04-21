@@ -11,8 +11,9 @@
         return_content: true
       register: wazuh_version
 
-    - debug:
-      msg: "latest wazuh: {{ wazuh_version.json.tag_name }}"
+    - name: print latest wazuh release
+      ansible.builtin.debug:
+        msg: "latest wazuh: {{ wazuh_version.json.tag_name }}"
 
   tasks:
     - name: clone wazuh ansible role
