@@ -6,15 +6,6 @@
   become: true
   become_user: root
 
-  vars:
-    azure:
-      service_principal_id: "'{{ lookup('ansible.builtin.env', 'service_principal_id') }}'"
-      service_principal_secret: "'{{ lookup('ansible.builtin.env', 'service_principal_secret') }}'"
-      resource_group: "'{{ lookup('ansible.builtin.env', 'resource_group') }}'"
-      tenant_id: "'{{ lookup('ansible.builtin.env', 'tenant_id') }}'"
-      subscription_id: "'{{ lookup('ansible.builtin.env', 'subscription_id') }}'"
-      location: "{{ lookup('ansible.builtin.env', 'location') | quote }}"
-
   #pre_tasks:
     #- name: update apt cache
       #ansible.builtin.apt:
@@ -26,7 +17,5 @@
     
   tasks:
     - name: Connect the Connected Machine Agent on Linux servers to Azure Arc
-      ansible.builtin.debug:
-        msg: "{{ lookup('ansible.builtin.env', 'location') | quote }}"
       become: true
-      shell: azcmagent connect --service-principal-id "{{ azure.service_principal_id }}" --service-principal-secret "{{ azure.service_principal_secret }}" --resource-group "{{ azure.resource_group }}" --tenant-id "{{ azure.tenant_id }}" --location "{{ azure.location }}" --subscription-id "{{ azure.subscription_id }}"
+      shell: azcmagent connect --service-principal-id "{{ az-sp }}" --service-principal-secret "{{ az-sp-scrt }}" --resource-group "{{ az-rg }}" --tenant-id "{{ az-tenant }}" --location "{{ az-loc }}" --subscription-id "{{ az-sub }}"
