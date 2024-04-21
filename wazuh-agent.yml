@@ -6,7 +6,7 @@
   pre_tasks:
     - name: get latest wazuh release version
       ansible.builtin.uri:
-        url: https://api.github.com/repos/wazuh/wazuh-ansible/releases/main
+        url: https://api.github.com/repos/wazuh/wazuh-ansible/releases/latest
         body_format: json
         return_content: true
       register: wazuh_version
