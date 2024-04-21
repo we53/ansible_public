@@ -19,7 +19,7 @@
         clone: yes
         update: yes
         single_branch: true
-        version: {{wazuh_version.json.tag_name}}
+        version: "{{ wazuh_version.json.tag_name }}"
 
 - hosts: localhost
   become: yes
