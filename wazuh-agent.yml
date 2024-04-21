@@ -19,7 +19,7 @@
     - /etc/ansible/roles/wazuh-ansible/roles/wazuh/ansible-wazuh-agent
   vars:
     wazuh_managers:
-      - address: "{{ lookup('env','WAZUH_SERVER') }}"
+      - address: "{{ wazuh_srv }}"
         port: 1514
         protocol: tcp
         api_port: 55000
@@ -44,8 +44,6 @@
       user_generate_authd_cert: "n"
       user_update: "y"
       user_binaryinstall: null
-      user_agent_server_ip: 172.16.24.56
-      user_agent_server_name: null
       user_agent_config_profile: null
       user_ca_store: /var/ossec/wpk_root.pem"
       wazuh_profile: "ubuntu, ubuntu18"
