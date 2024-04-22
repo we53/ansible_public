@@ -1,0 +1,33 @@
+- hosts: localhost
+  become: true
+  become_user: root
+
+  #pre_tasks:
+    #- name: update apt cache
+      #ansible.builtin.apt:
+        #update_cache: yes
+        
+    #- name: update base os and software
+      #ansible.builtin.apt:
+        #upgrade: dist
+    
+  tasks:
+    - name: pull the portainer_agent image
+      community.docker.docker_image:
+        name: portainer/agent:latest
+        source: pull
+
+    - name: Run Docker container
+      community.docker.docker_container:
+        name: portainer_agent
+        image: portainer/agent
+        state: started
+        ports:
+          - "9001:9001"
+        env:
+          EDGE: "1"
+          EDGE_ID: "{{ edge_id }}"
+          EDGE_KEY: "{{ edge_key }}"
+          EDGE_INSECURE_POLL: "1"
+          PORTAINER_GROUP: "3"
+          PORTAINER_TAGS: "2:3"
