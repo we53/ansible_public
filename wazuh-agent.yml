@@ -13,7 +13,7 @@
 
     - name: print latest wazuh release
       ansible.builtin.debug:
-        msg: "latest wazuh: {{ wazuh_version.json.tag_name }}"
+        msg: "latest wazuh release version: {{ wazuh_version.json.tag_name }}"
 
   tasks:
     - name: clone wazuh ansible role
