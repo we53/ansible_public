@@ -12,6 +12,10 @@
         #upgrade: dist
     
   tasks:
+    - name: Install bottle python package
+      ansible.builtin.pip:
+        name: docker
+
     - name: pull the portainer_agent image
       community.docker.docker_image:
         name: portainer/agent:latest
