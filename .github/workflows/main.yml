@@ -1,23 +1,13 @@
----
-name: Checkov
+# .github/workflows/ansible-lint.yml
+name: ansible-lint
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    branches: ["main", "stable", "release/v*"]
 jobs:
   build:
-
+    name: Ansible Lint # Naming the build is important to use it as a status check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.8
-      - name: Test with Checkov
-        id: checkov
-        uses: bridgecrewio/checkov-action@master
-        with:
-          directory: example/examplea
-          framework: terraform 
-          
+      - uses: actions/checkout@v4
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@main # or version tag instead of 'main'
