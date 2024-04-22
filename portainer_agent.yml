@@ -19,11 +19,9 @@
 
     - name: Run Docker container
       community.docker.docker_container:
-        name: portainer_agent
+        name: portainer_edge_agent
         image: portainer/agent
         state: started
-        ports:
-          - "9001:9001"
         env:
           EDGE: "1"
           EDGE_ID: "{{ edge_id }}"
