@@ -18,7 +18,7 @@
 
     - name: Print the jwt response
       debug:
-        var: gcp_vmid  
+        var: gcp_vmid.stdout
 
     - name: Connect the Connected Machine Agent on Linux servers to Azure Arc
       become: true
