@@ -13,7 +13,7 @@
         
   tasks:
     - name: get instance id for vm 
-      shell: curl "http://metadata.google.internal/computeMetadata/v1/instance/id" -H "Metadata-Flavor: Google"
+      shell: 'curl "http://metadata.google.internal/computeMetadata/v1/instance/id" -H "Metadata-Flavor: Google"'
       register: gcp_vmid
 
     - name: Disconnect the Connected Machine Agent and delete Linux servers to Azure Arc
