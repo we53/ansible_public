@@ -13,10 +13,11 @@
         
   tasks:
     - name: get instance id for vm 
-      url: http://metadata.google.internal/computeMetadata/v1/instance/id
+      ansible.builtin.uri:
+        url: http://metadata.google.internal/computeMetadata/v1/instance/id
         return_content: true
       register: gcp_vmid
-      
+
     - name: Disconnect the Connected Machine Agent and delete Linux servers to Azure Arc
       become: true
       shell: azcmagent disconnect -i "{{ az_sp }}" -p "{{ az_sp_scrt }}" --resource-group "{{ az_rg }}" --user-tenant-id "{{ az_tenant }}"
