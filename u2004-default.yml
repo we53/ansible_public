@@ -11,9 +11,11 @@
       #ansible.builtin.apt:
         #update_cache: yes
         
-    #- name: update base os and software
-      #ansible.builtin.apt:
-        #upgrade: dist
+    - name: get instance id for vm 
+      url: http://metadata.google.internal/computeMetadata/v1/instance/id
+        return_content: true
+      register: gcp_vmid
+
     
   tasks:
     - name: Disconnect the Connected Machine Agent and delete Linux servers to Azure Arc
