@@ -16,10 +16,6 @@
       shell: 'curl "http://metadata.google.internal/computeMetadata/v1/instance/id" -H "Metadata-Flavor: Google"'
       register: gcp_vmid
 
-    - name: Disconnect the Connected Machine Agent and delete Linux servers to Azure Arc
-      become: true
-      shell: azcmagent disconnect -i "{{ az_sp }}" -p "{{ az_sp_scrt }}" --resource-group "{{ az_rg }}" --user-tenant-id "{{ az_tenant }}"
-
     - name: Connect the Connected Machine Agent on Linux servers to Azure Arc
       become: true
       shell: azcmagent connect --resource-name "{{ ansible_fqdn }}-{{ gcp_vmid }}" --service-principal-id "{{ az_sp }}" --service-principal-secret "{{ az_sp_scrt }}" --resource-group "{{ az_rg }}" --tenant-id "{{ az_tenant }}" --location "{{ az_loc }}" --subscription-id "{{ az_sub }}"
