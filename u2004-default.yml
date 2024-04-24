@@ -6,18 +6,17 @@
   become: true
   become_user: root
 
-  pre_tasks:
+  #pre_tasks:
     #- name: update apt cache
       #ansible.builtin.apt:
         #update_cache: yes
         
+  tasks:
     - name: get instance id for vm 
       url: http://metadata.google.internal/computeMetadata/v1/instance/id
         return_content: true
       register: gcp_vmid
-
-    
-  tasks:
+      
     - name: Disconnect the Connected Machine Agent and delete Linux servers to Azure Arc
       become: true
       shell: azcmagent disconnect -i "{{ az_sp }}" -p "{{ az_sp_scrt }}" --resource-group "{{ az_rg }}" --user-tenant-id "{{ az_tenant }}"
