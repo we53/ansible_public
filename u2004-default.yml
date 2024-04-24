@@ -6,7 +6,7 @@
   become: true
   become_user: root
 
-  #pre_tasks:
+  pre_tasks:
     #- name: update apt cache
       #ansible.builtin.apt:
         #update_cache: yes
