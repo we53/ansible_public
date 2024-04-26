@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+  become: yes
+  become_user: root
+
+  pre_tasks:
+    - name: get latest wazuh release version
+      ansible.builtin.uri:
+        url: https://api.github.com/repos/wazuh/wazuh-ansible/releases/latest
+        body_format: json
+        return_content: true
+      register: wazuh_version
+
+    - name: print latest wazuh release
+      ansible.builtin.debug:
+        msg: "latest wazuh release version: {{ wazuh_version.json.tag_name }}"
+
+  tasks:
+    - name: clone wazuh ansible role
+      ansible.builtin.git:
+        repo: https://github.com/wazuh/wazuh-ansible.git
+        dest: /etc/ansible/roles/wazuh-ansible/
+        clone: yes
+        update: yes
+        single_branch: true
+        version: "{{ wazuh_version.json.tag_name }}"
