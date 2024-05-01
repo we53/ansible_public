@@ -24,6 +24,4 @@
           - xsltproc
           - ssg-debderived
         state: latest
-        update_cache: true
-    - name: download newest STIG for Ubuntu from ComplianceAsACode
-    
+    #- name: download newest STIG for Ubuntu from ComplianceAsACode
