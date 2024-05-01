@@ -1,0 +1,29 @@
+- name: install openscap
+  hosts: 127.0.0.1
+  connection: local
+
+  pre_tasks:
+    - name: get latest pac release version
+      ansible.builtin.uri:
+        url: https://github.com/ComplianceAsCode/content/releases/latest
+        body_format: json
+        return_content: true
+      register: pac_version
+
+    - name: print latest wazuh release
+      ansible.builtin.debug:
+        msg: "latest PaC release version: {{ pac.json.tag_name }}"
+
+  tasks:
+    # install required packages
+    - name: Install required system packages
+      become: true
+      apt:
+        pkg:
+          - libopenscap8
+          - xsltproc
+          - ssg-debderived
+        state: latest
+        update_cache: true
+    - name: download newest STIG for Ubuntu from ComplianceAsACode
+    
