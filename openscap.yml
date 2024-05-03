@@ -10,7 +10,7 @@
         return_content: true
       register: pac_version
 
-    - name: print latest wazuh release
+    - name: print latest PaC release
       ansible.builtin.debug:
         msg: "latest PaC release version: {{ pac.json.tag_name }}"
 
