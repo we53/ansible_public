@@ -12,7 +12,7 @@
 
     - name: print latest PaC release
       ansible.builtin.debug:
-        msg: "latest PaC release version: {{ pac.json.tag_name }}"
+        msg: "latest PaC release version: {{ pac_version.json.tag_name }}"
 
   tasks:
     # install required packages
