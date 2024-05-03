@@ -5,7 +5,7 @@
   pre_tasks:
     - name: get latest pac release version
       ansible.builtin.uri:
-        url: https://github.com/ComplianceAsCode/content/releases/latest
+        url: https://api.github.com/repos/ComplianceAsCode/content/releases/latest
         body_format: json
         return_content: true
       register: pac_version
