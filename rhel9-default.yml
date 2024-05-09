@@ -8,3 +8,4 @@
       ansible.builtin.yum:
         name: '*'
         state: latest
+        use_backend: dnf
